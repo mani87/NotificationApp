@@ -7,4 +7,16 @@
     android:padding="15dp"
     tools:context="com.example.mani.notificationapp.MainActivity">
 
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="11dp"
+        android:text="Logout"
+        android:textAllCaps="false"
+        android:background="@drawable/btn_dark"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"/>
 </RelativeLayout>
