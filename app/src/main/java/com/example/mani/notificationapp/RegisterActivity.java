@@ -65,6 +65,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+                                mProgressBar.setVisibility(View.INVISIBLE);
                                 String user_id = mAuth.getCurrentUser().getUid();
 
                                 Map<String, String> userMap = new HashMap<>();
@@ -74,7 +75,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 mStore.collection("Users").document(user_id).set(userMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        mProgressBar.setVisibility(View.INVISIBLE);
                                         sendToMain();
                                     }
                                 });
