@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="51dp"
         android:gravity="center"
-        android:text="Welcome to Notification App"
+        android:text="Welcome to Office Bell"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="24sp" />
 

@@ -14,9 +14,19 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="11dp"
+        android:background="@drawable/btn_dark"
         android:text="Logout"
         android:textAllCaps="false"
-        android:background="@drawable/btn_dark"
         android:textColor="@android:color/white"
-        android:textSize="22sp"/>
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/tv_profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Loading..."
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"/>
 </RelativeLayout>
