@@ -4,7 +4,7 @@ package com.example.mani.notificationapp;
  * Created by mani on 1/26/18.
  */
 
-public class Users {
+public class Users extends UserId {
     String name;
 
     public Users(){

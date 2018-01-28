@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStart() {
         super.onStart();
 
+        usersList.clear();
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser == null) {
@@ -50,7 +52,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         if (doc.getType() == DocumentChange.Type.ADDED) {
 
-                            Users users = doc.getDocument().toObject(Users.class);
+                            String user_id = doc.getDocument().getId();
+
+                            Users users = doc.getDocument().toObject(Users.class).withId(user_id);
                             usersList.add(users);
 
                             mAdapter.notifyDataSetChanged();
