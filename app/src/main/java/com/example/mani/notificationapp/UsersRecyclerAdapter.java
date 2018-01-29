@@ -57,7 +57,7 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRecyclerAdap
 
                 Map<String, Object> notificationMessage = new HashMap<>();
                 notificationMessage.put("message", message);
-                notificationMessage.put("from",current_user);
+                notificationMessage.put("from", current_user);
 
                 mFirestore.collection("Users/" + user_id + "/Notifications").add(notificationMessage).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
