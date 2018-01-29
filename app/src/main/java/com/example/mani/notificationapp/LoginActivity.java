@@ -12,16 +12,24 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText mEmail, mPassword;
     private Button mLoginButton, mRegisterNot;
     FirebaseAuth mAuth;
+    private FirebaseFirestore mFirestore;
 
     @Override
     protected void onStart() {
@@ -51,6 +59,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mRegisterNot = (Button) findViewById(R.id.btn_not_registered);
 
         mAuth = FirebaseAuth.getInstance();
+        mFirestore = FirebaseFirestore.getInstance();
 
         mRegisterNot.setOnClickListener(this);
         mLoginButton.setOnClickListener(this);
@@ -71,11 +80,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
-                                sendToMain();
+                            if (task.isSuccessful()) {
+
+                                String token_id = FirebaseInstanceId.getInstance().getToken();
+                                String current_id = mAuth.getCurrentUser().getUid();
+
+                                Map<String, Object> tokenMap = new HashMap<>();
+                                tokenMap.put("token_id", token_id);
+
+                                mFirestore.collection("Users").document(current_id).update(tokenMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        sendToMain();
+                                    }
+                                });
+
                             }
-                            else{
-                                Toast.makeText(LoginActivity.this, "Error :"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            else {
+                                Toast.makeText(LoginActivity.this, "Error :" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

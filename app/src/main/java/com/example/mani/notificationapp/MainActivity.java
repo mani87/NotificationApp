@@ -15,12 +15,15 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -118,9 +121,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        mAuth.signOut();
-        Intent logoutIntent = new Intent(MainActivity.this, LoginActivity.class);
-        startActivity(logoutIntent);
-        finish();
+
+        Map<String, Object> tokenRemove = new HashMap<>();
+        tokenRemove.put("token_id", FieldValue.delete());
+
+        mFirestore.collection("Users").document(mUserId).update(tokenRemove).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                mAuth.signOut();
+                Intent logoutIntent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(logoutIntent);
+                finish();
+            }
+        });
+
     }
 }

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -27,6 +28,7 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRecyclerAdap
     private List<Users> usersList;
     private String message = "You are notified!";
     private FirebaseFirestore mFirestore;
+    private FirebaseAuth mAuth;
 
     public UsersRecyclerAdapter(List<Users> usersList) {
         this.usersList = usersList;
@@ -51,9 +53,11 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRecyclerAdap
             @Override
             public void onClick(final View view) {
 
-                Map<String, String> notificationMessage = new HashMap<String, String>();
+                String current_user = mAuth.getCurrentUser().getUid();
+
+                Map<String, Object> notificationMessage = new HashMap<>();
                 notificationMessage.put("message", message);
-                notificationMessage.put("title","Urgently...");
+                notificationMessage.put("from",current_user);
 
                 mFirestore.collection("Users/" + user_id + "/Notifications").add(notificationMessage).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
@@ -88,6 +92,7 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRecyclerAdap
             mView = itemView;
             mUsersTextview = (TextView) mView.findViewById(R.id.tv_users);
             mFirestore = FirebaseFirestore.getInstance();
+            mAuth = FirebaseAuth.getInstance();
         }
     }
 }
