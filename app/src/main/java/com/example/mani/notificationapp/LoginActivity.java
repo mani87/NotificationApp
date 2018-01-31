@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +29,7 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText mEmail, mPassword;
+    ProgressBar mProgressBar;
     private Button mLoginButton, mRegisterNot;
     FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
@@ -57,6 +60,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mPassword = (EditText) findViewById(R.id.et_user_password);
         mLoginButton = (Button) findViewById(R.id.btn_login);
         mRegisterNot = (Button) findViewById(R.id.btn_not_registered);
+        mProgressBar = (ProgressBar) findViewById(R.id.pb_login_activity);
 
         mAuth = FirebaseAuth.getInstance();
         mFirestore = FirebaseFirestore.getInstance();
@@ -66,13 +70,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(final View view) {
         switch (view.getId()) {
             case R.id.btn_not_registered:
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_login:
+                mProgressBar.setVisibility(view.VISIBLE);
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 String email = mEmail.getText().toString();
                 String password = mPassword.getText().toString();
 
@@ -81,7 +88,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-
+                                mProgressBar.setVisibility(view.INVISIBLE);
                                 String token_id = FirebaseInstanceId.getInstance().getToken();
                                 String current_id = mAuth.getCurrentUser().getUid();
 
@@ -96,6 +103,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 });
 
                             } else {
+                                mProgressBar.setVisibility(view.INVISIBLE);
                                 Toast.makeText(LoginActivity.this, "Error :" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
