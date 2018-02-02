@@ -6,16 +6,21 @@ package com.example.mani.notificationapp;
 
 public class Users extends UserId {
     String name;
+    String usertype;
 
-    public Users(){
+    public Users() {
 
     }
 
-    public Users(String name){
+    public Users(String name) {
         this.name = name;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
+    }
+
+    public String getUsertype() {
+        return usertype;
     }
 }

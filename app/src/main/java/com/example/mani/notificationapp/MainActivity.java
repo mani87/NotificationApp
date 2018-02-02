@@ -5,9 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView mProfileName;
     private FirebaseFirestore mFirestore;
     private String mUserId;
-    private String mUsertype;
+    public static String user_type;
     private FirebaseAuth mAuth;
 
     @Override
@@ -61,13 +63,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                             Users users = doc.getDocument().toObject(Users.class).withId(user_id);
 
-
                             usersList.add(users);
                             mAdapter.notifyDataSetChanged();
+
                         }
-
                     }
-
                 }
             });
         }
@@ -101,11 +101,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAdapter = new UsersRecyclerAdapter(usersList);
 
         mUserListView = (RecyclerView) findViewById(R.id.rv_users);
-
-
         mUserListView.setHasFixedSize(true);
         mUserListView.setLayoutManager(new LinearLayoutManager(this));
-        mUserListView.setAdapter(mAdapter);
+
+
 
 
         if (currentUser != null) {
@@ -115,11 +114,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
 
                     String user_name = documentSnapshot.getString("name");
-                    mUsertype = documentSnapshot.getString("usertype");
-                    mProfileName.setText(user_name + " (" + mUsertype + ")");
+                    user_type = documentSnapshot.getString("usertype");
+
+                    mProfileName.setText(user_name + " (" + user_type + ")");
+                    if(user_type.equals("admin"))
+                        mUserListView.setAdapter(mAdapter);
+                    else{
+                        mUserListView.setVisibility(View.INVISIBLE);
+                    }
                 }
             });
         }
+
+
+
+
+
 
         mLogoutButton.setOnClickListener(this);
     }
