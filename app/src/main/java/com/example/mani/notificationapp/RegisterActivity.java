@@ -29,6 +29,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private EditText mName, mEmail, mPassword;
     private String user_id;
+    String name;
     private ProgressBar mProgressBar;
     private FirebaseAuth mAuth;
     private FirebaseFirestore mStore;
@@ -62,7 +63,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 mProgressBar.setVisibility(View.VISIBLE);
                 getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                final String name = mName.getText().toString();
+                name = mName.getText().toString();
+                name = name.toLowerCase();
+                name = name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
                 final String email = mEmail.getText().toString();
                 String password = mPassword.getText().toString();
 
@@ -80,6 +83,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 Map<String, Object> userMap = new HashMap<>();
                                 userMap.put("name", name);
                                 userMap.put("email", email);
+                                userMap.put("usertype","guest");
                                 userMap.put("token_id", token_id);
 
                                 mStore.collection("Users").document(user_id).set(userMap).addOnSuccessListener(new OnSuccessListener<Void>() {

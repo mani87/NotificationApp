@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView mProfileName;
     private FirebaseFirestore mFirestore;
     private String mUserId;
+    private String mUsertype;
     private FirebaseAuth mAuth;
 
     @Override
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             sendToLogin();
         } else {
             mFirestore.collection("Users").addSnapshotListener(MainActivity.this, new EventListener<QuerySnapshot>() {
+
                 @Override
                 public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
 
@@ -58,10 +60,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             String user_id = doc.getDocument().getId();
 
                             Users users = doc.getDocument().toObject(Users.class).withId(user_id);
+
+
                             usersList.add(users);
-
                             mAdapter.notifyDataSetChanged();
-
                         }
 
                     }
@@ -99,6 +101,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAdapter = new UsersRecyclerAdapter(usersList);
 
         mUserListView = (RecyclerView) findViewById(R.id.rv_users);
+
+
         mUserListView.setHasFixedSize(true);
         mUserListView.setLayoutManager(new LinearLayoutManager(this));
         mUserListView.setAdapter(mAdapter);
@@ -111,7 +115,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
 
                     String user_name = documentSnapshot.getString("name");
-                    mProfileName.setText(user_name);
+                    mUsertype = documentSnapshot.getString("usertype");
+                    mProfileName.setText(user_name + " (" + mUsertype + ")");
                 }
             });
         }
