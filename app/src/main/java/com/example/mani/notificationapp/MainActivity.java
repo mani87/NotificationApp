@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if(user_type.equals("admin"))
                         mUserListView.setAdapter(mAdapter);
                     else{
-                        mUserListView.setVisibility(View.INVISIBLE);
+                        mUserListView.setVisibility(View.GONE);
                     }
                 }
             });
