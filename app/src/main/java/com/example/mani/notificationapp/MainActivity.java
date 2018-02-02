@@ -29,15 +29,15 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private TextView mProfileName;
     private RecyclerView mUserListView;
     private UsersRecyclerAdapter mAdapter;
     private List<Users> usersList;
     private Button mLogoutButton;
-    private TextView mProfileName;
     private FirebaseFirestore mFirestore;
     private String mUserId;
-    public static String user_type;
     private FirebaseAuth mAuth;
+    public static String user_type;
 
     @Override
     protected void onStart() {
@@ -105,8 +105,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mUserListView.setLayoutManager(new LinearLayoutManager(this));
 
 
-
-
         if (currentUser != null) {
             mFirestore.collection("Users").document(mUserId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
 
@@ -117,20 +115,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     user_type = documentSnapshot.getString("usertype");
 
                     mProfileName.setText(user_name + " (" + user_type + ")");
-                    if(user_type.equals("admin"))
+                    if (user_type.equals("admin"))
                         mUserListView.setAdapter(mAdapter);
-                    else{
+                    else {
                         mUserListView.setVisibility(View.GONE);
                     }
                 }
             });
         }
-
-
-
-
-
-
         mLogoutButton.setOnClickListener(this);
     }
 
@@ -149,6 +141,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 finish();
             }
         });
-
     }
 }

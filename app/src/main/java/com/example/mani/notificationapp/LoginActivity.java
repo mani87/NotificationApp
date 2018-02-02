@@ -29,9 +29,9 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText mEmail, mPassword;
-    ProgressBar mProgressBar;
+    private ProgressBar mProgressBar;
     private Button mLoginButton, mRegisterNot;
-    FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
 
     @Override
@@ -110,8 +110,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     });
 
                 }
-
         }
-
     }
 }

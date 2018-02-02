@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingRight="15dp"
-    android:paddingLeft="15dp"
     android:background="@android:color/holo_orange_light"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
     tools:context="com.example.mani.notificationapp.RegisterActivity">
 
     <EditText
@@ -68,7 +67,7 @@
         android:layout_below="@+id/user_password_regitser"
         android:layout_marginTop="13dp"
         android:background="@drawable/btn_dark"
-        android:text="Register"
+        android:text="@string/register"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
 
@@ -96,7 +95,7 @@
         android:layout_below="@+id/btn_register"
         android:layout_marginTop="14dp"
         android:background="@drawable/border_button"
-        android:text="Already have account?"
+        android:text="@string/already_account"
         android:textAllCaps="false"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="20sp" />
@@ -106,7 +105,7 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:indeterminate="true"
-        android:visibility="invisible"
-        android:layout_alignParentTop="true" />
+        android:visibility="invisible" />
 </RelativeLayout>
