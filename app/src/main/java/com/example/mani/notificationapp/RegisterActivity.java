@@ -64,14 +64,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
                 name = mName.getText().toString();
-                if(name.contains(" ")){
+                if (name.contains(" ")) {
                     String[] names = name.split(" ");
-                    names[0] = names[0].substring(0,1).toUpperCase() + names[0].substring(1).toLowerCase();
-                    names[1] = names[1].substring(0,1).toUpperCase() + names[1].substring(1).toLowerCase();
-                    name = names[0]+ " " + names[1];
-                }
-                else{
-                    name = name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
+                    names[0] = names[0].substring(0, 1).toUpperCase() + names[0].substring(1).toLowerCase();
+                    names[1] = names[1].substring(0, 1).toUpperCase() + names[1].substring(1).toLowerCase();
+                    name = names[0] + " " + names[1];
+                } else {
+                    name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
                 }
 
                 final String email = mEmail.getText().toString();

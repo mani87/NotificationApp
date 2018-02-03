@@ -45,12 +45,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void sendToMain() {
-        Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intentMain);
-        finish();
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,5 +105,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 }
         }
+    }
+
+    private void sendToMain() {
+        Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intentMain);
+        finish();
     }
 }
