@@ -2,6 +2,7 @@ package com.example.mani.notificationapp;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -55,6 +56,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mLoginButton = (Button) findViewById(R.id.btn_login);
         mRegisterNot = (Button) findViewById(R.id.btn_not_registered);
         mProgressBar = (ProgressBar) findViewById(R.id.pb_login_activity);
+
 
         mAuth = FirebaseAuth.getInstance();
         mFirestore = FirebaseFirestore.getInstance();
