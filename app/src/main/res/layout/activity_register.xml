@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,53 +9,76 @@
     android:paddingRight="15dp"
     tools:context="com.example.mani.notificationapp.RegisterActivity">
 
-    <EditText
-        android:id="@+id/et_user_name"
-        android:layout_width="wrap_content"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/material_register_fullname"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/textView"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/input_layout"
-        android:ems="10"
-        android:hint="Full Name"
-        android:inputType="textPersonName"
-        android:padding="12dp" />
+        android:layout_marginTop="5dp">
 
-    <EditText
-        android:id="@+id/et_user_email_regitser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/et_user_name"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignStart="@+id/et_user_name"
-        android:layout_below="@+id/et_user_name"
-        android:layout_marginTop="21dp"
-        android:background="@drawable/input_layout"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:padding="12dp" />
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/et_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView"
+            android:layout_marginTop="28dp"
+            android:ems="10"
+            android:hint="Full Name"
+            android:inputType="textPersonName"
+            android:padding="12dp" />
 
-    <EditText
-        android:id="@+id/user_password_regitser"
-        android:layout_width="wrap_content"
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/material_register_email"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/et_user_email_regitser"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignStart="@+id/et_user_email_regitser"
-        android:layout_below="@+id/et_user_email_regitser"
-        android:layout_marginTop="21dp"
-        android:background="@drawable/input_layout"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:padding="12dp" />
+        android:layout_below="@+id/material_register_fullname"
+        android:layout_marginTop="5dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/et_user_email_regitser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/et_user_name"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignStart="@+id/et_user_name"
+            android:layout_marginTop="21dp"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:padding="12dp" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/material_register_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/material_register_email"
+        android:layout_marginTop="5dp"
+        app:passwordToggleEnabled="true">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/user_password_regitser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/et_user_email_regitser"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignStart="@+id/et_user_email_regitser"
+            android:layout_below="@+id/et_user_email_regitser"
+            android:layout_marginTop="21dp"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="12dp" />
+    </android.support.design.widget.TextInputLayout>
+
 
     <Button
         android:id="@+id/btn_register"
@@ -64,7 +88,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/user_password_regitser"
+        android:layout_below="@+id/material_register_password"
         android:layout_marginTop="13dp"
         android:background="@drawable/btn_dark"
         android:text="@string/register"
