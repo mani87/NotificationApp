@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_orange_light"
+    android:background="@android:color/white"
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
     tools:context="com.example.mani.notificationapp.MainActivity">
@@ -17,7 +17,7 @@
         android:layout_marginTop="51dp"
         android:gravity="center"
         android:text="@string/welcome_line"
-        android:textColor="@android:color/holo_red_dark"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="26sp" />
 
     <android.support.design.widget.TextInputLayout
@@ -89,7 +89,7 @@
         android:background="@drawable/border_button"
         android:text="@string/not_registered"
         android:textAllCaps="false"
-        android:textColor="@android:color/holo_red_dark"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="22sp" />
 
     <ProgressBar
