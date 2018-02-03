@@ -15,21 +15,21 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-
-        String messageTitle = remoteMessage.getNotification().getTitle();
-        String messageBody = remoteMessage.getNotification().getBody();
-
-        NotificationCompat.Builder mBuiler =
-                new NotificationCompat.Builder(this, getString(R.string.default_notification_channel_id))
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle(messageTitle)
-                        .setContentText(messageBody);
-
-        int mNotificationId = (int) System.currentTimeMillis();
-
-        NotificationManager mNotifiMgr =
-                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        mNotifiMgr.notify(mNotificationId, mBuiler.build());
+//
+//        String messageTitle = remoteMessage.getNotification().getTitle();
+//        String messageBody = remoteMessage.getNotification().getBody();
+//
+//        NotificationCompat.Builder mBuiler =
+//                new NotificationCompat.Builder(this, getString(R.string.default_notification_channel_id))
+//                        .setSmallIcon(R.mipmap.ic_launcher)
+//                        .setContentTitle(messageTitle)
+//                        .setContentText(messageBody);
+//
+//        int mNotificationId = (int) System.currentTimeMillis();
+//
+//        NotificationManager mNotifiMgr =
+//                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//        mNotifiMgr.notify(mNotificationId, mBuiler.build());
 
     }
 
