@@ -89,7 +89,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/material_register_password"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/btn_dark"
         android:text="@string/register"
         android:textColor="@android:color/white"
