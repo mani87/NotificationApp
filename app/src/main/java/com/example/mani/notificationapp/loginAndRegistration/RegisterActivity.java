@@ -42,12 +42,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mAuth = FirebaseAuth.getInstance();
         mStore = FirebaseFirestore.getInstance();
 
-        mName = (EditText) findViewById(R.id.et_user_name);
-        mEmail = (EditText) findViewById(R.id.et_user_email_regitser);
-        mPassword = (EditText) findViewById(R.id.user_password_regitser);
-        mProgressBar = (ProgressBar) findViewById(R.id.pb_register);
-        Button mRegisterButton = (Button) findViewById(R.id.btn_register);
-        Button mAlreadyAccount = (Button) findViewById(R.id.btn_account_already);
+        mName = findViewById(R.id.et_user_name);
+        mEmail = findViewById(R.id.et_user_email_regitser);
+        mPassword = findViewById(R.id.user_password_regitser);
+        mProgressBar = findViewById(R.id.pb_register);
+        Button mRegisterButton = findViewById(R.id.btn_register);
+        Button mAlreadyAccount = findViewById(R.id.btn_account_already);
 
         mAlreadyAccount.setOnClickListener(this);
         mRegisterButton.setOnClickListener(this);
@@ -85,7 +85,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 mProgressBar.setVisibility(View.INVISIBLE);
                                 user_id = mAuth.getCurrentUser().getUid();
 
-
                                 String token_id = FirebaseInstanceId.getInstance().getToken();
 
                                 Map<String, Object> userMap = new HashMap<>();
@@ -106,7 +105,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                         Toast.makeText(RegisterActivity.this, "", Toast.LENGTH_SHORT).show();
                                     }
                                 });
-
 
                             } else {
                                 mProgressBar.setVisibility(View.INVISIBLE);

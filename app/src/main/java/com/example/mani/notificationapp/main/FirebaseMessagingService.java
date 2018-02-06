@@ -20,8 +20,6 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         String messageTitle = remoteMessage.getNotification().getTitle();
         String messageBody = remoteMessage.getNotification().getBody();
 
-
-
         NotificationCompat.Builder mBuiler =
                 new NotificationCompat.Builder(this, getString(R.string.default_notification_channel_id))
                         .setSmallIcon(R.mipmap.ic_launcher)
