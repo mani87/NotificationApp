@@ -1,16 +1,17 @@
-package com.example.mani.notificationapp;
+package com.example.mani.notificationapp.main;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.mani.notificationapp.R;
+import com.example.mani.notificationapp.dataModels.Users;
+import com.example.mani.notificationapp.loginAndRegistration.LoginActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,14 +31,60 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView mProfileName;
-    private RecyclerView mUserListView;
+    private RecyclerView mRecyclerView;
     private UsersRecyclerAdapter mAdapter;
     private List<Users> usersList;
-    private Button mLogoutButton;
     private FirebaseFirestore mFirestore;
     private String mUserId;
     private FirebaseAuth mAuth;
     public static String user_type;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        mAuth = FirebaseAuth.getInstance();
+        mFirestore = FirebaseFirestore.getInstance();
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null) {
+            mUserId = mAuth.getCurrentUser().getUid();
+        }
+
+
+        Button logoutButton = findViewById(R.id.btn_logout);
+        mProfileName = findViewById(R.id.tv_profile_name);
+
+        usersList = new ArrayList<>();
+        mAdapter = new UsersRecyclerAdapter(usersList);
+
+        mRecyclerView = findViewById(R.id.rv_users);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+        if (currentUser != null) {
+            mFirestore.collection("Users").document(mUserId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                    String user_name = documentSnapshot.getString("name");
+                    user_type = documentSnapshot.getString("usertype");
+
+                    mProfileName.setText(user_name + " (" + user_type + ")");
+                    if (user_type.equals("admin"))
+                        mRecyclerView.setAdapter(mAdapter);
+                    else {
+                        mRecyclerView.setVisibility(View.GONE);
+                    }
+                }
+            });
+        }
+        logoutButton.setOnClickListener(this);
+    }
 
     @Override
     protected void onStart() {
@@ -71,53 +118,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             });
         }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        mAuth = FirebaseAuth.getInstance();
-        mFirestore = FirebaseFirestore.getInstance();
-
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-
-        if (currentUser != null) {
-            mUserId = mAuth.getCurrentUser().getUid();
-        }
-
-
-        mLogoutButton = (Button) findViewById(R.id.btn_logout);
-        mProfileName = (TextView) findViewById(R.id.tv_profile_name);
-
-        usersList = new ArrayList<>();
-        mAdapter = new UsersRecyclerAdapter(usersList);
-
-        mUserListView = (RecyclerView) findViewById(R.id.rv_users);
-        mUserListView.setHasFixedSize(true);
-        mUserListView.setLayoutManager(new LinearLayoutManager(this));
-
-
-        if (currentUser != null) {
-            mFirestore.collection("Users").document(mUserId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-                    String user_name = documentSnapshot.getString("name");
-                    user_type = documentSnapshot.getString("usertype");
-
-                    mProfileName.setText(user_name + " (" + user_type + ")");
-                    if (user_type.equals("admin"))
-                        mUserListView.setAdapter(mAdapter);
-                    else {
-                        mUserListView.setVisibility(View.GONE);
-                    }
-                }
-            });
-        }
-        mLogoutButton.setOnClickListener(this);
     }
 
     @Override

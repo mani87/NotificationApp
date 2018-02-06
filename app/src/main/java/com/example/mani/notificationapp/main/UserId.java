@@ -1,4 +1,4 @@
-package com.example.mani.notificationapp;
+package com.example.mani.notificationapp.main;
 
 import android.support.annotation.NonNull;
 

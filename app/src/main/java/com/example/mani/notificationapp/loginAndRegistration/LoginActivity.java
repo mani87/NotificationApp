@@ -1,12 +1,10 @@
-package com.example.mani.notificationapp;
+package com.example.mani.notificationapp.loginAndRegistration;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -14,13 +12,14 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.mani.notificationapp.main.MainActivity;
+import com.example.mani.notificationapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -31,7 +30,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private EditText mEmail, mPassword;
     private ProgressBar mProgressBar;
-    private Button mLoginButton, mRegisterNot;
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
 
@@ -51,18 +49,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mEmail = (EditText) findViewById(R.id.et_user_email);
-        mPassword = (EditText) findViewById(R.id.et_user_password);
-        mLoginButton = (Button) findViewById(R.id.btn_login);
-        mRegisterNot = (Button) findViewById(R.id.btn_not_registered);
-        mProgressBar = (ProgressBar) findViewById(R.id.pb_login_activity);
+        mEmail = findViewById(R.id.et_user_email);
+        mPassword = findViewById(R.id.et_user_password);
+        Button loginButton = findViewById(R.id.btn_login);
+        Button registerNot = findViewById(R.id.btn_not_registered);
+        mProgressBar = findViewById(R.id.pb_login_activity);
 
 
         mAuth = FirebaseAuth.getInstance();
         mFirestore = FirebaseFirestore.getInstance();
 
-        mRegisterNot.setOnClickListener(this);
-        mLoginButton.setOnClickListener(this);
+        registerNot.setOnClickListener(this);
+        loginButton.setOnClickListener(this);
     }
 
     @Override
@@ -84,7 +82,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                mProgressBar.setVisibility(view.INVISIBLE);
+                                mProgressBar.setVisibility(view.GONE);
                                 String token_id = FirebaseInstanceId.getInstance().getToken();
                                 String current_id = mAuth.getCurrentUser().getUid();
 
@@ -99,7 +97,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 });
 
                             } else {
-                                mProgressBar.setVisibility(view.INVISIBLE);
+                                mProgressBar.setVisibility(view.GONE);
                                 Toast.makeText(LoginActivity.this, "Error :" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }

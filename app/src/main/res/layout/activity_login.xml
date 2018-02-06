@@ -7,7 +7,7 @@
     android:background="@android:color/white"
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
-    tools:context="com.example.mani.notificationapp.MainActivity">
+    tools:context="com.example.mani.notificationapp.main.MainActivity">
 
     <TextView
         android:id="@+id/heading_layout"

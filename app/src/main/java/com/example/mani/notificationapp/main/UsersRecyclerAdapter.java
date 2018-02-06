@@ -1,6 +1,5 @@
-package com.example.mani.notificationapp;
+package com.example.mani.notificationapp.main;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mani.notificationapp.R;
+import com.example.mani.notificationapp.dataModels.Users;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,9 +37,12 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRecyclerAdap
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_list, parent, false);
+        View view = LayoutInflater
+                .from(parent.getContext())
+                .inflate(R.layout.user_list, parent, false);
 
         return new ViewHolder(view);
+
     }
 
     @Override
@@ -58,7 +62,10 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRecyclerAdap
                 notificationMessage.put("message", "You are required here.");
                 notificationMessage.put("from", current_user);
 
-                mFirestore.collection("Users/" + user_id + "/Notifications").add(notificationMessage).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                mFirestore
+                        .collection("Users/" + user_id + "/Notifications")
+                        .add(notificationMessage)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Toast.makeText(view.getContext(), "Notification sent!", Toast.LENGTH_LONG).show();
@@ -84,12 +91,11 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRecyclerAdap
         private View mView;
         private TextView mUsersTextview;
 
-
         public ViewHolder(View itemView) {
             super(itemView);
 
             mView = itemView;
-            mUsersTextview = (TextView) mView.findViewById(R.id.tv_users);
+            mUsersTextview = mView.findViewById(R.id.tv_users);
             mFirestore = FirebaseFirestore.getInstance();
             mAuth = FirebaseAuth.getInstance();
         }
