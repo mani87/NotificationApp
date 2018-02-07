@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Office Bell</string>
     <string name="default_notification_channel_id">NOTIFY</string>
-    <string name="welcome_line">Welcome to <b>OfficeBell</b></string>
+    <string name="welcome_line">Welcome to Office Bell</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="already_account">Already have account?</string>
