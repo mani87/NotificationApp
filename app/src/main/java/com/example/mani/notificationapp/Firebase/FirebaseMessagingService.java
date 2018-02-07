@@ -1,4 +1,4 @@
-package com.example.mani.notificationapp.main;
+package com.example.mani.notificationapp.Firebase;
 
 import android.app.Notification;
 import android.app.NotificationManager;

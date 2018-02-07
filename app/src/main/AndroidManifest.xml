@@ -27,13 +27,6 @@
 
         <!--this service will be executed whenever a
         new notification message will be send by the server-->
-        <service
-            android:name=".main.FirebaseMessagingService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-            </intent-filter>
-        </service>
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
