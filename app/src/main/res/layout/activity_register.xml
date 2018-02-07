@@ -28,8 +28,7 @@
             android:layout_marginTop="28dp"
             android:ems="10"
             android:hint="Full Name"
-            android:inputType="textPersonName"
-            android:padding="12dp" />
+            android:inputType="textPersonName" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -51,8 +50,7 @@
             android:layout_marginTop="21dp"
             android:ems="10"
             android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:padding="12dp" />
+            android:inputType="textEmailAddress" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -75,8 +73,7 @@
             android:layout_marginTop="21dp"
             android:ems="10"
             android:hint="Password"
-            android:inputType="textPassword"
-            android:padding="12dp" />
+            android:inputType="textPassword" />
     </android.support.design.widget.TextInputLayout>
 
 
