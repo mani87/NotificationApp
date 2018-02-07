@@ -95,7 +95,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 mStore.collection("Users").document(user_id).set(userMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        mProgressBar.setVisibility(View.INVISIBLE);
+                                        mProgressBar.setVisibility(View.GONE);
                                         sendToMain();
 
                                     }
@@ -113,6 +113,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             }
                         }
                     });
+                }
+                else{
+                    mProgressBar.setVisibility(View.GONE);
+                    Toast.makeText(this, R.string.empty, Toast.LENGTH_SHORT).show();
                 }
                 break;
         }

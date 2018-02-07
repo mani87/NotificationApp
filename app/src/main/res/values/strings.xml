@@ -9,4 +9,5 @@
     <string name="Register_with_us">Register with us!</string>
     <string name="logout">Logout</string>
     <string name="message">Be there in the Office as soon as possible!</string>
+    <string name="empty">Fill all credentials</string>
 </resources>

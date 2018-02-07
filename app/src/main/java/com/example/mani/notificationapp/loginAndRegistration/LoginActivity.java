@@ -105,6 +105,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     });
 
                 }
+                else{
+                    mProgressBar.setVisibility(view.GONE);
+                    Toast.makeText(LoginActivity.this, R.string.empty, Toast.LENGTH_LONG).show();
+                }
         }
     }
 
