@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                mProgressBar.setVisibility(view.GONE);
+
                                 String token_id = FirebaseInstanceId.getInstance().getToken();
                                 String current_id = mAuth.getCurrentUser().getUid();
 
@@ -92,6 +92,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 mFirestore.collection("Users").document(current_id).update(tokenMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
+                                        mProgressBar.setVisibility(view.GONE);
                                         sendToMain();
                                     }
                                 });
