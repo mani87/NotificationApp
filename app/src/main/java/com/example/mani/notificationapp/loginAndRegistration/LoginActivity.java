@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.sdsmdg.tastytoast.TastyToast;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -99,17 +100,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                             } else {
                                 mProgressBar.setVisibility(view.GONE);
-                                Toast.makeText(LoginActivity.this, "Error :" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                TastyToast.makeText(getApplicationContext(), task.getException().getMessage(), TastyToast.LENGTH_LONG, TastyToast.ERROR).show();
                             }
                         }
                     });
 
-                }
-                else{
+                } else {
                     mProgressBar.setVisibility(view.GONE);
-                    Toast.makeText(LoginActivity.this, R.string.empty, Toast.LENGTH_LONG).show();
+                    TastyToast.makeText(getApplicationContext(), "Make sure you have filled all credentials!", TastyToast.LENGTH_LONG, TastyToast.INFO).show();
                 }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        mProgressBar.setVisibility(View.GONE);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        super.onBackPressed();
     }
 
     private void sendToMain() {

@@ -22,6 +22,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.sdsmdg.tastytoast.TastyToast;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -65,13 +66,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
                 name = mName.getText().toString();
-                if (name.contains(" ")) {
-                    String[] names = name.split(" ");
-                    names[0] = names[0].substring(0, 1).toUpperCase() + names[0].substring(1).toLowerCase();
-                    names[1] = names[1].substring(0, 1).toUpperCase() + names[1].substring(1).toLowerCase();
-                    name = names[0] + " " + names[1];
-                } else {
-                    name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+                if (name.length() > 0) {
+                    if (name.contains(" ")) {
+                        String[] names = name.split(" ");
+                        names[0] = names[0].substring(0, 1).toUpperCase() + names[0].substring(1).toLowerCase();
+                        names[1] = names[1].substring(0, 1).toUpperCase() + names[1].substring(1).toLowerCase();
+                        name = names[0] + " " + names[1];
+                    } else {
+                        name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+                    }
                 }
 
                 final String email = mEmail.getText().toString();
@@ -102,21 +105,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(RegisterActivity.this, "", Toast.LENGTH_SHORT).show();
+                                        TastyToast.makeText(getApplicationContext(), e.getMessage(), TastyToast.LENGTH_LONG, TastyToast.ERROR).show();
                                     }
                                 });
 
                             } else {
                                 mProgressBar.setVisibility(View.INVISIBLE);
-
-                                Toast.makeText(RegisterActivity.this, "Error : " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                TastyToast.makeText(getApplicationContext(), task.getException().getMessage(), TastyToast.LENGTH_LONG, TastyToast.ERROR).show();
                             }
                         }
                     });
-                }
-                else{
+                } else {
                     mProgressBar.setVisibility(View.GONE);
-                    Toast.makeText(this, R.string.empty, Toast.LENGTH_SHORT).show();
+                    TastyToast.makeText(getApplicationContext(), "Make sure you have filled all credentials!", TastyToast.LENGTH_LONG, TastyToast.INFO).show();
                 }
                 break;
         }
