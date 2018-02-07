@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -52,9 +54,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         mEmail = findViewById(R.id.et_user_email);
         mPassword = findViewById(R.id.et_user_password);
-        Button loginButton = findViewById(R.id.btn_login);
+        final Button loginButton = findViewById(R.id.btn_login);
         Button registerNot = findViewById(R.id.btn_not_registered);
         mProgressBar = findViewById(R.id.pb_login_activity);
+
+        TextWatcher mTextWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (mEmail.getText().length() > 0 && mPassword.getText().length() > 0) {
+                    loginButton.setBackgroundResource(R.drawable.btn_dark);
+                } else {
+                    loginButton.setBackgroundResource(R.drawable.disable_btn);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        };
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -62,6 +81,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         registerNot.setOnClickListener(this);
         loginButton.setOnClickListener(this);
+
+        mEmail.addTextChangedListener(mTextWatcher);
+        mPassword.addTextChangedListener(mTextWatcher);
     }
 
     @Override

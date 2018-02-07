@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -47,11 +49,33 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mEmail = findViewById(R.id.et_user_email_regitser);
         mPassword = findViewById(R.id.user_password_regitser);
         mProgressBar = findViewById(R.id.pb_register);
-        Button mRegisterButton = findViewById(R.id.btn_register);
+        final Button mRegisterButton = findViewById(R.id.btn_register);
         Button mAlreadyAccount = findViewById(R.id.btn_account_already);
+
+        TextWatcher mTextWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(mName.getText().length()>0 && mEmail.getText().length()>0 && mPassword.getText().length()>0){
+                    mRegisterButton.setBackgroundResource(R.drawable.btn_dark);
+                }
+                else{
+                    mRegisterButton.setBackgroundResource(R.drawable.disable_btn);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        };
 
         mAlreadyAccount.setOnClickListener(this);
         mRegisterButton.setOnClickListener(this);
+
+        mName.addTextChangedListener(mTextWatcher);
+        mEmail.addTextChangedListener(mTextWatcher);
+        mPassword.addTextChangedListener(mTextWatcher);
     }
 
     @Override
