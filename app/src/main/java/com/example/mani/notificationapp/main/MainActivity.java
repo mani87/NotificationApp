@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.mani.notificationapp.Adapter.UsersRecyclerAdapter;
 import com.example.mani.notificationapp.R;
 import com.example.mani.notificationapp.dataModels.Users;
 import com.example.mani.notificationapp.loginAndRegistration.LoginActivity;
@@ -109,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             String user_id = doc.getDocument().getId();
 
                             Users users = doc.getDocument().toObject(Users.class).withId(user_id);
+                            FirebaseUser currentuser = mAuth.getCurrentUser();
 
                             usersList.add(users);
                             mAdapter.notifyDataSetChanged();
