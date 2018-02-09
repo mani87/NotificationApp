@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.sdsmdg.tastytoast.TastyToast;
 
 import java.util.HashMap;
 import java.util.List;
@@ -68,12 +69,12 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRecyclerAdap
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(view.getContext(), "Notification sent!", Toast.LENGTH_LONG).show();
+                        TastyToast.makeText(view.getContext(), "Notification sent!", TastyToast.LENGTH_LONG, TastyToast.SUCCESS).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(view.getContext(), "Error :" + e.getMessage(), Toast.LENGTH_LONG).show();
+                        TastyToast.makeText(view.getContext(), e.getMessage(), TastyToast.LENGTH_LONG, TastyToast.ERROR).show();
                     }
                 });
             }
