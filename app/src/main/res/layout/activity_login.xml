@@ -70,7 +70,7 @@
         android:layout_below="@+id/material_password_login"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:background="@drawable/btn_dark"
+        android:background="@drawable/disable_btn"
         android:text="@string/login"
         android:textAllCaps="false"
         android:textColor="@android:color/white"

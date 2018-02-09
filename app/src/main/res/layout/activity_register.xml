@@ -87,7 +87,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/material_register_password"
         android:layout_marginTop="50dp"
-        android:background="@drawable/btn_dark"
+        android:background="@drawable/disable_btn"
         android:text="@string/register"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
