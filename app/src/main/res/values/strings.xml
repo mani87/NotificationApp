@@ -10,4 +10,8 @@
     <string name="logout">Logout</string>
     <string name="message">Be there in the Office as soon as possible!</string>
     <string name="empty">Fill all credentials</string>
+
+    <string name="invalid_email">Please enter a valid email address</string>
+    <string name="invalid_name">Please enter a valid username</string>
+    <string name="invalid_password">Please enter a valid password</string>
 </resources>

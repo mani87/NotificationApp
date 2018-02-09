@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -14,6 +15,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.example.mani.notificationapp.main.MainActivity;
 import com.example.mani.notificationapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,6 +39,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ProgressBar mProgressBar;
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
+    private AwesomeValidation awesomeValidation;
 
     @Override
     protected void onStart() {
@@ -52,6 +57,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+
         mEmail = findViewById(R.id.et_user_email);
         mPassword = findViewById(R.id.et_user_password);
         final Button loginButton = findViewById(R.id.btn_login);
@@ -60,7 +67,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         TextWatcher mTextWatcher = new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -72,7 +80,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {}
+            public void afterTextChanged(Editable editable) {
+            }
         };
 
 
@@ -84,6 +93,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         mEmail.addTextChangedListener(mTextWatcher);
         mPassword.addTextChangedListener(mTextWatcher);
+        addValidationToViews();
     }
 
     @Override
@@ -94,42 +104,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.btn_login:
-                mProgressBar.setVisibility(view.VISIBLE);
-
-                String email = mEmail.getText().toString();
-                String password = mPassword.getText().toString();
-
-                if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
-                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-
-                                String token_id = FirebaseInstanceId.getInstance().getToken();
-                                String current_id = mAuth.getCurrentUser().getUid();
-
-                                Map<String, Object> tokenMap = new HashMap<>();
-                                tokenMap.put("token_id", token_id);
-
-                                mFirestore.collection("Users").document(current_id).update(tokenMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        mProgressBar.setVisibility(view.GONE);
-                                        sendToMain();
-                                    }
-                                });
-
-                            } else {
-                                mProgressBar.setVisibility(view.GONE);
-                                TastyToast.makeText(getApplicationContext(), task.getException().getMessage(), TastyToast.LENGTH_LONG, TastyToast.ERROR).show();
-                            }
-                        }
-                    });
-
-                } else {
-                    mProgressBar.setVisibility(view.GONE);
-                    TastyToast.makeText(getApplicationContext(), "Make sure you have filled all credentials!", TastyToast.LENGTH_LONG, TastyToast.INFO).show();
-                }
+                LoginProcess();
+                break;
         }
     }
 
@@ -143,5 +119,52 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Intent intentMain = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intentMain);
         finish();
+    }
+
+    private void LoginProcess() {
+        mProgressBar.setVisibility(View.VISIBLE);
+        if (awesomeValidation.validate()) {
+            String email = mEmail.getText().toString();
+            String password = mPassword.getText().toString();
+
+            if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
+                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+
+                            String token_id = FirebaseInstanceId.getInstance().getToken();
+                            String current_id = mAuth.getCurrentUser().getUid();
+
+                            Map<String, Object> tokenMap = new HashMap<>();
+                            tokenMap.put("token_id", token_id);
+
+                            mFirestore.collection("Users").document(current_id).update(tokenMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    mProgressBar.setVisibility(View.GONE);
+                                    sendToMain();
+                                }
+                            });
+
+                        } else {
+                            mProgressBar.setVisibility(View.GONE);
+                            TastyToast.makeText(getApplicationContext(), task.getException().getMessage(), TastyToast.LENGTH_LONG, TastyToast.ERROR).show();
+                        }
+                    }
+                });
+
+            } else {
+                mProgressBar.setVisibility(View.GONE);
+                TastyToast.makeText(getApplicationContext(), "Make sure you have filled all credentials!", TastyToast.LENGTH_LONG, TastyToast.INFO).show();
+            }
+        } else {
+            mProgressBar.setVisibility(View.GONE);
+        }
+    }
+
+    private void addValidationToViews() {
+        awesomeValidation.addValidation(LoginActivity.this, R.id.et_user_email, Patterns.EMAIL_ADDRESS, R.string.invalid_email);
+        awesomeValidation.validate();
     }
 }
