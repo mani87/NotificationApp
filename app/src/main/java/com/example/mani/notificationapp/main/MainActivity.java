@@ -133,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onSuccess(Void aVoid) {
                 mAuth.signOut();
                 Intent logoutIntent = new Intent(MainActivity.this, LoginActivity.class);
+                logoutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(logoutIntent);
                 finish();
             }

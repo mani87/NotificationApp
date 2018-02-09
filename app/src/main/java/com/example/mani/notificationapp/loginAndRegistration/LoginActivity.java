@@ -88,12 +88,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mAuth = FirebaseAuth.getInstance();
         mFirestore = FirebaseFirestore.getInstance();
 
+        addValidationToViews();
         registerNot.setOnClickListener(this);
         loginButton.setOnClickListener(this);
 
         mEmail.addTextChangedListener(mTextWatcher);
         mPassword.addTextChangedListener(mTextWatcher);
-        addValidationToViews();
+        
     }
 
     @Override
