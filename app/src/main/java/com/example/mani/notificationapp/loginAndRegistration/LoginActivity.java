@@ -88,7 +88,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mAuth = FirebaseAuth.getInstance();
         mFirestore = FirebaseFirestore.getInstance();
 
-        addValidationToViews();
         registerNot.setOnClickListener(this);
         loginButton.setOnClickListener(this);
 
@@ -105,6 +104,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             case R.id.btn_login:
+                addValidationToViews();
                 LoginProcess();
                 break;
         }

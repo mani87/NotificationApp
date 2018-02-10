@@ -85,7 +85,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         mEmail.addTextChangedListener(mTextWatcher);
         mPassword.addTextChangedListener(mTextWatcher);
 
-        addValidationToViews();
     }
 
 
@@ -96,6 +95,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 finish();
                 break;
             case R.id.btn_register:
+                addValidationToViews();
                 sendDataToFirebase();
                 break;
         }
