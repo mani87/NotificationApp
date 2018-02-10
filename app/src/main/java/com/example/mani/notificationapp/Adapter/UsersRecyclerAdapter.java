@@ -90,7 +90,7 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRecyclerAdap
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private View mView;
-        private TextView mUsersTextview;
+        private TextView mUsersTextview, mCircleTextview;
 
         public ViewHolder(View itemView) {
             super(itemView);
