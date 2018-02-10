@@ -4,10 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="#20E91E63"
     android:orientation="horizontal"
     android:padding="10dp"
     android:elevation="5dp"
+    android:clickable="true"
+    android:background="?attr/selectableItemBackground"
     android:clipToPadding="false">
 
     <ImageView

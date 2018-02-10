@@ -60,7 +60,7 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRecyclerAdap
                 String current_user = mAuth.getCurrentUser().getUid();
 
                 Map<String, Object> notificationMessage = new HashMap<>();
-                notificationMessage.put("message", "You are required here.");
+                notificationMessage.put("message", "Be there in the Office as soon as possible.");
                 notificationMessage.put("from", current_user);
 
                 mFirestore
