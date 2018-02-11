@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white"
     tools:context="com.example.mani.notificationapp.main.MainActivity">
 
@@ -12,10 +13,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
         android:layout_marginBottom="11dp"
         android:background="@drawable/border_button"
         android:text="@string/logout"
-        android:layout_margin="20dp"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="22sp" />
@@ -30,22 +31,15 @@
         android:textSize="30sp"
         android:textStyle="bold" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_logout"
-        android:layout_below="@+id/tv_profile_name"
-        android:layout_marginBottom="10dp">
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_users"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/btn_logout"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/tv_profile_name"
-            android:layout_marginTop="21dp" />
-    </ScrollView>
-
+            android:layout_marginTop="21dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </RelativeLayout>
