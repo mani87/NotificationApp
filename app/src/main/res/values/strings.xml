@@ -14,4 +14,8 @@
     <string name="invalid_email">Please enter a valid email address</string>
     <string name="invalid_name">Please enter a valid username</string>
     <string name="invalid_password">Please enter a valid password</string>
+    <string name="warning">WARNING</string>
+    <string name="alert_message">Are you sure you want to logout?</string>
+    <string name="positive">Yes I\'m sure</string>
+    <string name="negative">Cancel</string>
 </resources>

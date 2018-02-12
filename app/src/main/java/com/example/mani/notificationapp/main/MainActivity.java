@@ -1,6 +1,8 @@
 package com.example.mani.notificationapp.main;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -125,19 +127,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
 
-        Map<String, Object> tokenRemove = new HashMap<>();
-        tokenRemove.put("token_id", FieldValue.delete());
-
-        mFirestore.collection("Users").document(mUserId).update(tokenRemove).addOnSuccessListener(new OnSuccessListener<Void>() {
+        AlertDialog.Builder alertDailog = new AlertDialog.Builder(this);
+        alertDailog.setTitle(R.string.warning);
+        alertDailog.setMessage(R.string.alert_message);
+        alertDailog.setPositiveButton(R.string.positive, new DialogInterface.OnClickListener() {
             @Override
-            public void onSuccess(Void aVoid) {
-                mAuth.signOut();
-                Intent logoutIntent = new Intent(MainActivity.this, LoginActivity.class);
-                logoutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(logoutIntent);
-                finish();
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Map<String, Object> tokenRemove = new HashMap<>();
+                tokenRemove.put("token_id", FieldValue.delete());
+
+                mFirestore.collection("Users").document(mUserId).update(tokenRemove).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        mAuth.signOut();
+                        Intent logoutIntent = new Intent(MainActivity.this, LoginActivity.class);
+                        logoutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(logoutIntent);
+                        finish();
+                    }
+                });
             }
         });
+        alertDailog.setNegativeButton(R.string.negative, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+
+        alertDailog.show();
+
     }
 
     private void sendToLogin() {
